@@ -1,0 +1,13 @@
+let authToken=localStorage.getItem("sheik_token"),user=null;
+const $=id=>document.getElementById(id);
+async function api(p,o={}){const h={"Content-Type":"application/json",...(o.headers||{})};if(authToken)h.Authorization=`Bearer ${authToken}`;const r=await fetch(p,{...o,headers:h}),d=await r.json().catch(()=>({}));if(!r.ok)throw Error(d.error||"Erro");return d}
+async function login(e){e.preventDefault();try{const d=await api("/api/auth/login",{method:"POST",body:JSON.stringify({email:$("email").value,password:$("password").value})});authToken=d.token;user=d.user;localStorage.setItem("sheik_token",authToken);show()}catch(e){$("msg").textContent=e.message}}
+async function show(){$("login").classList.add("hidden");$("app").classList.remove("hidden");$("badge").textContent=`${user.name} · ${user.role}`;if(user.role==="admin")$("admin").classList.remove("hidden");refresh()}
+async function refresh(){try{const b=await api("/api/boxes");$("boxes").innerHTML=b.length?b.map(x=>`<div class="box"><b>${esc(x.name)}</b><br>${esc(x.model||"Modelo não informado")}<br><span class="${x.status}">${x.status}</span>${x.status==="online"?` <button onclick="start(${x.id})">SOLICITAR</button>`:""}</div>`).join(""):"<p>Nenhuma box cadastrada.</p>";const s=await api("/api/sessions");$("sessions").innerHTML=s.length?s.map(x=>`<div class="session">#${x.id} · ${esc(x.box_name)} · ${x.status}${["active","pending"].includes(x.status)?` <button onclick="end(${x.id})">ENCERRAR</button>`:""}</div>`).join(""):"<p>Nenhuma sessão.</p>"}catch(e){}}
+async function gen(){try{const d=await api("/api/tokens",{method:"POST",body:JSON.stringify({minutes:10})});$("tokenOut").textContent=`${d.token}\nExpira: ${new Date(d.expiresAt).toLocaleString("pt-BR")}`}catch(e){alert(e.message)}}
+async function start(id){const t=prompt("Cole o token temporário:");if(!t)return;try{await api("/api/sessions",{method:"POST",body:JSON.stringify({token:t.trim(),boxId:id})});refresh()}catch(e){alert(e.message)}}
+async function end(id){try{await api(`/api/sessions/${id}/end`,{method:"POST"});refresh()}catch(e){alert(e.message)}}
+async function logs(){try{const d=await api("/api/admin/logs");$("logs").textContent=d.map(x=>`${new Date(x.created_at).toLocaleString("pt-BR")} | ${x.action} | ${x.email||"-"} | ${JSON.stringify(x.details)}`).join("\n")}catch(e){alert(e.message)}}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+$("form").addEventListener("submit",login);$("tokenBtn").addEventListener("click",gen);$("logsBtn").addEventListener("click",logs);
+(async()=>{if(authToken)try{const d=await api("/api/me");user=d.user;show()}catch{localStorage.removeItem("sheik_token");authToken=null}})();

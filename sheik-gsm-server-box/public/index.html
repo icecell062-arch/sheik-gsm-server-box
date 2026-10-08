@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHEIK GSM SERVER BOX</title><link rel="stylesheet" href="/styles.css"></head>
+<body><main class="container">
+<header><div><b>SHEIK <span>GSM</span></b><small>SERVER BOX</small></div><i id="badge">Não conectado</i></header>
+<section id="login" class="card"><h1>Acesso ao servidor</h1><p>Entre com sua conta autorizada.</p>
+<form id="form"><input id="email" type="email" placeholder="E-mail" required><input id="password" type="password" placeholder="Senha" required><button>ENTRAR</button></form><div id="msg"></div></section>
+<section id="app" class="hidden"><div class="grid">
+<div class="card"><h2>Boxes autorizadas</h2><div id="boxes"></div></div>
+<div class="card"><h2>Token temporário</h2><button id="tokenBtn">GERAR TOKEN — 10 MIN</button><pre id="tokenOut">Nenhum token.</pre></div>
+<div class="card"><h2>Minhas sessões</h2><div id="sessions"></div></div>
+<div id="admin" class="card hidden"><h2>Logs</h2><button id="logsBtn">ATUALIZAR</button><pre id="logs"></pre></div>
+</div></section></main><script src="/app.js"></script></body></html>
