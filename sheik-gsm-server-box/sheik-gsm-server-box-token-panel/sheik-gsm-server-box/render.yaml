@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: sheik-gsm-server-box
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_POLLING
+        value: "true"
+      - key: DEFAULT_AGENT_KEY
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: sheik-gsm-db
+          property: connectionString
+
+databases:
+  - name: sheik-gsm-db
+    plan: free

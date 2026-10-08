@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHEIK GSM SERVER BOX</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="bg-grid"></div>
+<main class="container">
+<header class="topbar">
+  <div class="brand"><strong>SHEIK <span>GSM</span></strong><small>SERVER BOX</small></div>
+  <div class="top-actions"><span id="badge" class="status-pill">● SERVIDOR ONLINE</span><button id="logoutBtn" class="ghost hidden">SAIR</button></div>
+</header>
+
+<section id="access" class="hero-layout">
+  <div class="hero-copy">
+    <div class="eyebrow">⚡ ACESSO REMOTO AUTORIZADO</div>
+    <h1>ALUGUEL DE FERRAMENTAS<br><span>VIA TOKEN</span></h1>
+    <p>Insira seu token temporário, escolha uma BOX disponível e conecte-se pelo cliente de compartilhamento autorizado.</p>
+    <div class="feature-row"><span>🔐 TOKEN TEMPORÁRIO</span><span>⏱️ TEMPO CONTROLADO</span><span>🛡️ SEM RADMIN VPN</span></div>
+  </div>
+  <div class="access-card panel">
+    <div class="panel-title">🔑 Digite ou cole seu Token de Acesso</div>
+    <input id="accessToken" class="token-input" placeholder="Cole seu token aqui" autocomplete="off">
+    <div class="select-row"><select id="accessBox"><option value="">Selecione uma BOX</option></select><button id="accessBtn" class="primary">🚀 CONECTAR</button></div>
+    <div id="accessMsg" class="msg"></div>
+    <div class="timer-wrap"><div id="timer" class="timer">30:00</div><span>tempo máximo da sessão</span></div>
+    <button id="vhBtn" class="secondary hidden">🖱️ ABRIR VIRTUALHERE</button>
+  </div>
+</section>
+
+<section class="grid public-grid">
+  <div class="panel"><div class="panel-head"><h2>🛠️ BOXES DISPONÍVEIS</h2><button id="refreshPublic" class="mini">ATUALIZAR</button></div><div id="publicBoxes" class="box-list"></div></div>
+  <div class="panel"><h2>📋 COMO USAR</h2><ol class="steps"><li>Adquira seu token pelo canal autorizado.</li><li>Cole o token no campo acima.</li><li>Escolha uma BOX disponível e clique em conectar.</li><li>Use somente o equipamento/cliente autorizado indicado pelo serviço.</li><li>O acesso termina automaticamente ao expirar a sessão.</li></ol></div>
+</section>
+
+<section id="login" class="panel login-panel hidden"><div class="panel-title">👑 Painel administrativo</div><p>Acesso restrito ao administrador autorizado.</p><form id="form"><input id="email" type="email" placeholder="E-mail" required><input id="password" type="password" placeholder="Senha" required><button class="primary">ENTRAR</button></form><div id="msg" class="msg"></div></section>
+
+<section id="dashboard" class="hidden">
+  <div class="dashboard-head"><div><div class="eyebrow">PAINEL</div><h2 id="welcome">SHEIK GSM</h2></div><button id="backPublic" class="ghost">← VOLTAR AO ACESSO</button></div>
+  <div class="grid">
+    <div class="panel"><h2>📦 BOXES</h2><div id="boxes"></div></div>
+    <div class="panel"><h2>🎫 TOKEN TEMPORÁRIO</h2><button id="tokenBtn" class="primary">GERAR TOKEN — 10 MIN</button><pre id="tokenOut">Nenhum token.</pre></div>
+    <div class="panel"><h2>⏱️ MINHAS SESSÕES</h2><div id="sessions"></div></div>
+    <div id="admin" class="panel hidden"><h2>⚙️ ADMIN — GERENCIAR BOXES</h2><form id="boxForm" class="admin-form"><input id="boxName" placeholder="Nome da BOX" required><input id="boxModel" placeholder="Modelo / ferramenta"><input id="boxSerial" placeholder="Serial / identificador"><input id="boxAgentKey" placeholder="Agent Key" required><button class="primary">+ CADASTRAR BOX</button></form><div id="adminMsg" class="msg"></div><div class="divider"></div><h3>BOXES CADASTRADAS</h3><div id="adminBoxes"></div></div>
+    <div id="adminLogs" class="panel hidden"><div class="panel-head"><h2>🧾 LOGS</h2><button id="logsBtn" class="mini">ATUALIZAR</button></div><pre id="logs"></pre></div>
+  </div>
+</section>
+<footer>© SHEIK GSM SERVER BOX • Uso somente com equipamentos e contas autorizados.</footer>
+</main>
+<script src="/app.js"></script>
+</body></html>
